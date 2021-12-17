@@ -1,5 +1,6 @@
 package assignment3;
 
+import java.util.Scanner;
 import java.io.IOException;
 import java.util.regex.*;
 import org.jsoup.Jsoup;
@@ -7,31 +8,22 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 public class RecommendArtists<T> implements Queue<T> {
+	
 
-//	public void bfs(String source) {
-//		boolean[] visited = new boolean[vertices];
-//		bfs(source, visited);
-//	}
-//
-//	void bfs(String line, boolean[] visted) {
-////		Queue q = new ArrayQueue();
-//		visited[line] = true;
-//		q.enqueue(v);
-//		while (!q.empty()) {
-//			line = q.dequeue();
-//			for (int adj : adjacent(line)) {
-//				if (!visited[adj]) {
-//					q.enqueue(adj);
-//					visted[adj] = true;
-//				}
+//	public static boolean stringContains(String artist, String[] parts) {
+//		for (int i = 0; i < parts.length; i++) {
+//			if (artist.contains(artists[i])) {
+//				return true;
 //			}
 //		}
-//
+//		return false;
 //	}
 
 	public static void main(String[] args) throws IOException {
-		
-//		Scanner scanner = new Scanner();
+
+		Scanner scanner = new Scanner(System.in);
+		String artist = "";
+		System.out.println("Please enter an artist: ");
 
 		Document document = Jsoup.connect("http://top40weekly.com").get();
 
@@ -41,20 +33,23 @@ public class RecommendArtists<T> implements Queue<T> {
 		Elements page = document.select("div.x-text");
 		String line = page.text();
 
-		// Separate the entire text into lines and add to the queue
+		// Separate the entire text into lines and add to the queue (contains artists
+		// and songs)-
 		String parts[] = line.split("\\.");
 		for (int i = 0; i < parts.length; i++) {
 //			System.out.println("-------" + parts[i]);
 			ArrayQueue<String> q = new ArrayQueue<String>();
 			q.enqueue(parts[i]);
-			System.out.println(parts[i]);
+//			System.out.println(parts[i]);	// retrieve the song
 		}
 
 		// Separate each of the artists
 		String artists[] = line.split("by | x | & | featuring");
-//		for (int i = 0; i <= line.length(); i++) {
-//			System.out.println("-------" + artists[i]);
-//		}
+		for (int i = 0; i < line.length(); i++) {
+			String line1 = artists[i];
+			String result = line1.substring(0, line1.indexOf(" (") + 1);
+			System.out.println(result); // retrived the artist
+		}
 //		String page_content = document.text();
 //		System.out.print(page_content);
 
